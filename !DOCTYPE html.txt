@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Precio con Descuento</title>
+    <script>
+        function calcularPrecio() {
+            // Obtener los valores seleccionados y el precio
+            var producto = document.getElementById('producto').value;
+            var descuento = parseInt(document.querySelector('input[name="descuento"]:checked').value);
+            var precio = parseFloat(document.getElementById('precio').value);
+
+            // Verificar que se haya ingresado un precio
+            if (isNaN(precio) || precio <= 0) {
+                alert("Por favor, ingrese un precio válido.");
+                return;
+            }
+
+            // Calcular el precio con descuento
+            var precioConDescuento = precio - (precio * descuento / 100);
+
+            // Mostrar los resultados
+            document.getElementById('resultado').innerHTML = `
+                <h3>Resultado:</h3>
+                <p><strong>Producto:</strong> ${producto}</p>
+                <p><strong>Descuento:</strong> ${descuento}%</p>
+                <p><strong>Precio Original:</strong> $${precio.toFixed(2)}</p>
+                <p><strong>Precio con Descuento:</strong> $${precioConDescuento.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h1>Calcular Precio Neto de un Producto</h1>
+
+    <form onsubmit="event.preventDefault(); calcularPrecio();">
+        <!-- Combobox para seleccionar producto -->
+        <label for="producto">Seleccione un Producto:</label>
+        <select id="producto" required>
+            <option value="Pan">Pan</option>
+            <option value="Leche">Leche</option>
+            <option value="Queso">Queso</option>
+            <option value="Arroz">Arroz</option>
+            <option value="Frijoles">Frijoles</option>
+        </select><br><br>
+
+        <!-- Radiobuttons para seleccionar descuento -->
+        <label>Seleccione un descuento:</label><br>
+        <input type="radio" name="descuento" value="5" required> 5%  
+        <input type="radio" name="descuento" value="10"> 10%  
+        <input type="radio" name="descuento" value="15"> 15%  
+        <input type="radio" name="descuento" value="20"> 20%  
+        <input type="radio" name="descuento" value="25"> 25%<br><br>
+
+        <!-- Entrada para precio -->
+        <label for="precio">Ingrese el precio:</label>
+        <input type="number" id="precio" min="0" required><br><br>
+
+        <!-- Botón para calcular -->
+        <input type="submit" value="Calcular Precio Final">
+    </form>
+
+    <div id="resultado"></div>
+
+</body>
+</html>
